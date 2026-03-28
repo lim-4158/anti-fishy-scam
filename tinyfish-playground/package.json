@@ -1,0 +1,7 @@
+{
+  "name": "tinyfish-playground",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^16.4.0"
+  }
+}
