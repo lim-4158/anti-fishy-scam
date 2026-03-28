@@ -4,9 +4,10 @@ import type { CheckState } from '../types';
 
 interface DashboardProps {
   checks: CheckState[];
+  devMode?: boolean;
 }
 
-export function Dashboard({ checks }: DashboardProps) {
+export function Dashboard({ checks, devMode = false }: DashboardProps) {
   if (checks.length === 0) {
     return (
       <div className="w-full max-w-3xl mx-auto">
@@ -52,7 +53,7 @@ export function Dashboard({ checks }: DashboardProps) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {checks.map((check, i) => (
-          <CheckCard key={check.id} check={check} index={i} />
+          <CheckCard key={check.id} check={check} index={i} devMode={devMode} />
         ))}
       </div>
     </motion.div>

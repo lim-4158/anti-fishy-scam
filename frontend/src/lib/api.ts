@@ -1,6 +1,42 @@
-import type { AnalyzeRequest, SSEEvent } from '../types';
+import type { AnalyzeRequest, ConversationDetail, ConversationSummary, SSEEvent } from '../types';
+import { seedConversations } from '../data/seedConversations';
 
 const API_BASE = '/api';
+
+function seedToSummary(c: ConversationDetail): ConversationSummary {
+  return {
+    id: c.id,
+    created_at: c.created_at,
+    input: c.input.slice(0, 120),
+    scam_type: c.scam_type,
+    verdict: c.verdict,
+    score: c.score,
+  };
+}
+
+export async function fetchConversations(): Promise<ConversationSummary[]> {
+  try {
+    const response = await fetch(`${API_BASE}/conversations`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return response.json();
+  } catch {
+    // Fallback to bundled seed data when backend is unavailable
+    return seedConversations.map(seedToSummary);
+  }
+}
+
+export async function fetchConversation(id: string): Promise<ConversationDetail> {
+  try {
+    const response = await fetch(`${API_BASE}/conversations/${id}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return response.json();
+  } catch {
+    // Fallback to bundled seed data
+    const found = seedConversations.find((c) => c.id === id);
+    if (found) return found;
+    throw new Error('Conversation not found');
+  }
+}
 
 export async function startAnalysis(
   request: AnalyzeRequest,

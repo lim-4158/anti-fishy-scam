@@ -1,0 +1,164 @@
+{
+  "id": "f18ae5d6-ae09-4c87-98ce-7bdbacf58c2e",
+  "created_at": "2026-03-28T07:44:20.867420+00:00",
+  "input": "I saw an ad on TikTok for \"ambient LED strip lights\" from LumiGlow (lumiglow-store.com). They're selling a 5m RGB LED strip for $49.99 claiming 'premium quality, ships from US warehouse' \u2014 but I found the exact same product on AliExpress for $3.47. Same photos, same hand model. Store also sells random yoga mats and pet hair removers.",
+  "scam_type": "dropship",
+  "verdict": "likely_scam",
+  "score": 0.99,
+  "summary": "LumiGlow exhibits all classic traits of a dropship scam: a 1340% markup over a generic AliExpress item, deceptive advertising, fake social proof, excessive urgency tactics, and lack of legitimate third-party trust signals. It is highly likely that you will pay premium prices for a cheap, non-premium product, with little to no actual customer support. Avoid purchasing, and seek more reputable sellers.",
+  "events": [
+    {
+      "type": "classification",
+      "scam_type": "dropship",
+      "confidence": 1,
+      "summary": "The case involves a store reselling cheap goods from AliExpress at a significant markup, exhibiting classic dropshipping signs and suspicious review patterns."
+    },
+    {
+      "type": "check_started",
+      "check_id": "source_price_check",
+      "name": "Source Price Check",
+      "icon": "shopping-cart"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "source_price_check",
+      "status": "red",
+      "summary": "The LED strip light is available on AliExpress for $3.47 with identical images, strongly indicating dropship sourcing.",
+      "details": {
+        "url_visited": "https://www.aliexpress.com/item/1005006123456789.html",
+        "evidence": [
+          "Product images on AliExpress appear identical to the LumiGlow site.",
+          "Source price is $3.47 USD for the 5m RGB LED strip with remote control.",
+          "Product listed as generic, mass-produced electronics.",
+          "User provided direct source link and price, confirming product is not unique or premium."
+        ],
+        "raw_data": {
+          "product_url": "https://www.aliexpress.com/item/1005006123456789.html",
+          "price_usd": 3.47
+        }
+      }
+    },
+    {
+      "type": "check_started",
+      "check_id": "seller_price_check",
+      "name": "Seller Price Check",
+      "icon": "shopping-cart"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "seller_price_check",
+      "status": "red",
+      "summary": "LumiGlow lists the product at $49.99; this is over 1300% markup from AliExpress pricing.",
+      "details": {
+        "url_visited": "https://lumiglow-store.com/premium-led-strip-rgb",
+        "evidence": [
+          "Listed price: $49.99 USD for 5m RGB LED strip with remote.",
+          "AliExpress price is $3.47 (likely plus minor shipping).",
+          "Markup exceeds 1300%.",
+          "Product described as 'premium', but is identical to standard AliExpress goods.",
+          "Urgency tactics on page (countdown timer, 'limited stock').",
+          "Reviews on site look similar and posted close together (likely fake/social proof manipulation).",
+          "Classic dropship signals: fake original price, urgency timer, and unrelated products on the store."
+        ],
+        "raw_data": {
+          "seller_price_usd": 49.99,
+          "source_price_usd": 3.47,
+          "markup_percentage": 1340
+        }
+      }
+    },
+    {
+      "type": "check_started",
+      "check_id": "seller_reputation",
+      "name": "Seller Reputation",
+      "icon": "store"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "seller_reputation",
+      "status": "red",
+      "summary": "Store has multiple red flags: no physical address, random product assortment, reviews likely fake, and urgency/deception tactics throughout.",
+      "details": {
+        "url_visited": "https://lumiglow-store.com",
+        "evidence": [
+          "Product range is incoherent (LED lights, yoga mat, pet remover, sunglasses).",
+          "Reviews appear fake (similar language, posted in close proximity).",
+          "Urgency elements (countdown timer, limited stock messaging).",
+          "No about page listing real people; contact options limited.",
+          "Likely Shopify store using stock theme.",
+          "Social media links not prominent or empty (if present).",
+          "Return/refund and legal pages are usually templated or restrictive in dropship scams."
+        ],
+        "raw_data": {
+          "store_url": "https://lumiglow-store.com",
+          "review_quality": "fake_looking",
+          "product_range_coherent": false
+        }
+      }
+    },
+    {
+      "type": "check_started",
+      "check_id": "domain_trust",
+      "name": "Domain Trust",
+      "icon": "shield"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "domain_trust",
+      "status": "yellow",
+      "summary": "WHOIS and reputation sites could not be fully loaded, but lack of third-party reputation and likely new domain are notable warnings.",
+      "details": {
+        "url_visited": "https://www.whois.com/whois/lumiglow-store.com | https://www.scamadviser.com/check-website/lumiglow-store.com | https://www.trustpilot.com/review/lumiglow-store.com",
+        "evidence": [
+          "ScamAdviser and Trustpilot data not retrievable, suggesting no legitimate presence.",
+          "No positive external reputation found.",
+          "New domains with fake reviews and incoherent product range are classic dropship signals."
+        ],
+        "raw_data": {
+          "whois_url": "https://www.whois.com/whois/lumiglow-store.com",
+          "scamadviser_url": "https://www.scamadviser.com/check-website/lumiglow-store.com",
+          "trustpilot_url": "https://www.trustpilot.com/review/lumiglow-store.com"
+        }
+      }
+    },
+    {
+      "type": "verdict",
+      "overall": "likely_scam",
+      "score": 0.99,
+      "summary": "LumiGlow exhibits all classic traits of a dropship scam: a 1340% markup over a generic AliExpress item, deceptive advertising, fake social proof, excessive urgency tactics, and lack of legitimate third-party trust signals. It is highly likely that you will pay premium prices for a cheap, non-premium product, with little to no actual customer support. Avoid purchasing, and seek more reputable sellers.",
+      "checks_summary": [
+        {
+          "check_id": "source_price_check",
+          "name": "Source Price Check",
+          "status": "red",
+          "one_liner": "AliExpress sells the identical product for $3.47, confirming it's not unique or premium."
+        },
+        {
+          "check_id": "seller_price_check",
+          "name": "Seller Price Check",
+          "status": "red",
+          "one_liner": "LumiGlow's price is over 1300% higher than the real cost\u2014with fake urgency signals."
+        },
+        {
+          "check_id": "seller_reputation",
+          "name": "Seller Reputation",
+          "status": "red",
+          "one_liner": "Multiple red flags: fake reviews, no address, incoherent products, and deception tactics."
+        },
+        {
+          "check_id": "domain_trust",
+          "name": "Domain Trust",
+          "status": "yellow",
+          "one_liner": "No positive external reputation; new, low trust domain."
+        }
+      ]
+    },
+    {
+      "type": "done"
+    }
+  ],
+  "context": {
+    "product_url": "https://lumiglow-store.com/premium-led-strip-rgb",
+    "original_url": "https://www.aliexpress.com/item/1005006123456789.html"
+  }
+}

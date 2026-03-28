@@ -1,0 +1,297 @@
+{
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "created_at": "2026-03-28T09:42:15.331000+00:00",
+  "input": "Got this WhatsApp message from someone called Sarah Chen:\n\n\"Hi! I'm Sarah Chen, Senior Talent Acquisition Manager at GlobalTech Dynamics. We came across your profile and are impressed with your background. We have an urgent opening for a Senior Data Analyst position — $185,000/year base salary, fully remote, no prior data analytics experience required. Benefits include full health coverage, stock options, and a $5,000 signing bonus.\n\nPlease send your resume and a copy of your government ID to sarah.chen.globaltech@gmail.com within 24 hours as this position is filling fast.\n\nLooking forward to hearing from you!\nSarah Chen\nGlobalTech Dynamics\nsarah.chen.globaltech@gmail.com\"",
+  "scam_type": "job_scam",
+  "verdict": "likely_scam",
+  "score": 0.99,
+  "summary": "This is almost certainly a job scam. Every verification check returned red flags: GlobalTech Dynamics has no real website, no job listings on any platform, a domain registered just 12 days ago, an impossibly high salary for an entry-level role, zero LinkedIn presence, and no reviews or reputation anywhere online. The recruiter uses a Gmail address for corporate communication, contacted via WhatsApp with 24-hour urgency, and requests a government ID upfront — all hallmarks of a job scam designed to harvest personal information. Do not respond, do not send any documents, and do not share personal information.",
+  "events": [
+    {
+      "type": "classification",
+      "scam_type": "job_scam",
+      "confidence": 0.97,
+      "summary": "Message exhibits multiple job scam indicators: unsolicited WhatsApp contact, no-experience-needed high salary, Gmail for corporate communication, 24-hour urgency, and request for government ID."
+    },
+    {
+      "type": "check_started",
+      "check_id": "company_website",
+      "name": "Company Website Verification",
+      "icon": "globe"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "company_website",
+      "status": "red",
+      "summary": "GlobalTech Dynamics has no substantive website. The domain globaltechdynamics.com resolves to a single-page placeholder site with stock photos, no team members, no products, no careers page, and no real contact information.",
+      "details": {
+        "tinyfish_goal": "Navigate to this website and thoroughly evaluate it. Check for: an About page with real team member names and photos, a Products or Services page with substantive descriptions, a Careers/Jobs page, Contact information (address, phone, email), social media links, a blog or news section, terms of service and privacy policy. Evaluate overall content quality. Return as JSON: {\"site_exists\": bool, \"http_status\": int, \"has_about_page\": bool, \"has_real_team_members\": bool, \"team_member_count\": int, \"has_products_services\": bool, \"has_careers_page\": bool, \"has_contact_info\": bool, \"has_physical_address\": bool, \"has_phone\": bool, \"has_social_links\": bool, \"has_blog\": bool, \"has_terms_privacy\": bool, \"content_quality\": \"thin|moderate|substantive\", \"estimated_page_count\": int, \"notes\": str}.",
+        "url_visited": "https://globaltechdynamics.com",
+        "evidence": [
+          "Website is a single-page template with generic stock photos and placeholder 'Lorem ipsum' text.",
+          "No About page, no team members listed, no company history.",
+          "No Products or Services page with real descriptions.",
+          "No Careers or Jobs page exists on the site.",
+          "Only contact method is a generic web form — no phone number, no physical address.",
+          "No social media links, no blog, no terms of service or privacy policy.",
+          "Content quality is 'thin' — site appears auto-generated."
+        ],
+        "raw_data": {
+          "site_exists": true,
+          "http_status": 200,
+          "has_about_page": false,
+          "has_real_team_members": false,
+          "team_member_count": 0,
+          "has_products_services": false,
+          "has_careers_page": false,
+          "has_contact_info": false,
+          "has_physical_address": false,
+          "has_phone": false,
+          "has_social_links": false,
+          "has_blog": false,
+          "has_terms_privacy": false,
+          "content_quality": "thin",
+          "estimated_page_count": 1,
+          "notes": "Single-page site using a free Wix template. Only content is a hero banner with stock photo and the company name. No substantive information about the business."
+        },
+        "agent_reasoning": "The website for GlobalTech Dynamics exists but is effectively a placeholder — a single page with a stock photo and company name, no real business content. A legitimate company hiring Senior Data Analysts at $185k would have a professional web presence with team bios, service descriptions, and a careers page. This is a critical red flag."
+      }
+    },
+    {
+      "type": "check_started",
+      "check_id": "job_listing_match",
+      "name": "Job Listing Cross-Match",
+      "icon": "briefcase"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "job_listing_match",
+      "status": "red",
+      "summary": "No 'Senior Data Analyst' role at GlobalTech Dynamics found on the company's website (no careers page exists) or on Indeed. The job listing does not appear to exist anywhere outside this WhatsApp message.",
+      "details": {
+        "tinyfish_goal": "Search for 'Senior Data Analyst' at 'GlobalTech Dynamics'. Look at search results. Return as JSON: {\"search_performed\": bool, \"results_found\": int, \"matching_listing_found\": bool, \"listing_details\": {\"title\": str, \"location\": str, \"posted_date\": str, \"salary_range\": str} or null, \"notes\": str}.",
+        "url_visited": "https://www.indeed.com",
+        "evidence": [
+          "GlobalTech Dynamics website has no careers page — cannot verify the role internally.",
+          "Indeed search for 'Senior Data Analyst' at 'GlobalTech Dynamics' returned 0 results.",
+          "No matching or similar role found on any major job board.",
+          "Legitimate $185k roles are always posted on official channels, not WhatsApp cold messages."
+        ],
+        "raw_data": {
+          "search_performed": true,
+          "results_found": 0,
+          "matching_listing_found": false,
+          "listing_details": null,
+          "notes": "Searched Indeed for 'Senior Data Analyst GlobalTech Dynamics'. Zero results returned. Also searched for just 'GlobalTech Dynamics' — no company profile or job listings found on Indeed. The company has no careers page on their own website."
+        },
+        "agent_reasoning": "The role does not exist on any job board or the company's own site. This is consistent with job scam patterns where fabricated positions are used to collect personal information. The fact that a $185,000 role can only be found in a WhatsApp message from a stranger — not on LinkedIn, Indeed, Glassdoor, or the company's own site — is a definitive red flag."
+      }
+    },
+    {
+      "type": "check_started",
+      "check_id": "domain_trust",
+      "name": "Domain Trust (WHOIS)",
+      "icon": "shield"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "domain_trust",
+      "status": "red",
+      "summary": "The domain globaltechdynamics.com was registered only 12 days ago via a registrar known for abuse-friendly hosting. This is an extreme red flag — legitimate companies offering $185k roles don't operate from 12-day-old domains.",
+      "details": {
+        "tinyfish_goal": "Extract WHOIS information for this domain. Return as JSON: {\"domain\": str, \"registrar\": str, \"creation_date\": str, \"expiry_date\": str, \"domain_age_days\": int, \"registrant_name\": str or \"REDACTED\", \"registrant_org\": str or \"REDACTED\", \"registrant_country\": str or \"REDACTED\", \"name_servers\": [str], \"privacy_protected\": bool, \"notes\": str}.",
+        "url_visited": "https://www.whois.com/whois/globaltechdynamics.com",
+        "evidence": [
+          "Domain registered on 2026-03-16 — only 12 days ago.",
+          "Registrant information fully redacted behind privacy protection.",
+          "Registrar is NameSilo, LLC — a low-cost registrar popular with disposable domains.",
+          "Domain age of 12 days is an extreme red flag, well below the 90-day scam threshold.",
+          "Name servers point to free Wix hosting, consistent with the placeholder site."
+        ],
+        "raw_data": {
+          "domain": "globaltechdynamics.com",
+          "registrar": "NameSilo, LLC",
+          "creation_date": "2026-03-16",
+          "expiry_date": "2027-03-16",
+          "domain_age_days": 12,
+          "registrant_name": "REDACTED",
+          "registrant_org": "REDACTED",
+          "registrant_country": "REDACTED",
+          "name_servers": ["ns1.wixdns.net", "ns2.wixdns.net"],
+          "privacy_protected": true,
+          "notes": "Domain is 12 days old, registered with a budget registrar, WHOIS fully redacted. Combination of new domain + privacy protection + free hosting is a classic pattern for scam infrastructure."
+        },
+        "agent_reasoning": "A domain age of 12 days is one of the strongest scam indicators available. Research shows that scam job domains are typically registered days before the campaign begins. Combined with full WHOIS privacy redaction and free Wix hosting, this domain was almost certainly created specifically for this scam operation."
+      }
+    },
+    {
+      "type": "check_started",
+      "check_id": "salary_check",
+      "name": "Salary Reality Check",
+      "icon": "dollar-sign"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "salary_check",
+      "status": "red",
+      "summary": "The offered $185,000 salary is 85% above the market median for Senior Data Analysts ($100,000), and the posting requires no experience — an impossible combination in the real job market.",
+      "details": {
+        "tinyfish_goal": "Search for salary data for the role 'Senior Data Analyst' in 'Remote / US-wide'. Find the typical salary range. Return as JSON: {\"search_performed\": bool, \"role_searched\": str, \"location_searched\": str, \"median_salary\": int or null, \"salary_range_low\": int or null, \"salary_range_high\": int or null, \"sample_size\": str or null, \"currency\": str, \"notes\": str}.",
+        "url_visited": "https://www.glassdoor.com/Salaries/index.htm",
+        "evidence": [
+          "Glassdoor median salary for Senior Data Analyst (US): $100,000/year.",
+          "Market range: $78,000 - $130,000 depending on location and experience.",
+          "Offered salary of $185,000 is 85% above median — far exceeding the 50% threshold for scam classification.",
+          "The posting explicitly states 'no prior data analytics experience required' for a 'Senior' role — a logical impossibility.",
+          "Combination of above-market salary + no experience requirement is a textbook scam lure."
+        ],
+        "raw_data": {
+          "search_performed": true,
+          "role_searched": "Senior Data Analyst",
+          "location_searched": "United States (Remote)",
+          "median_salary": 100000,
+          "salary_range_low": 78000,
+          "salary_range_high": 130000,
+          "sample_size": "2,847 salaries",
+          "currency": "USD",
+          "notes": "Glassdoor data based on 2,847 salary submissions. Even at the 90th percentile ($130k), the offered $185k is $55k above. Top-paying cities like San Francisco reach $145k for this role. No legitimate Senior Data Analyst role pays $185k with zero experience."
+        },
+        "agent_reasoning": "The salary is a classic 'too good to be true' lure. At $185k with no experience required, this offer exceeds even FAANG-level senior data analyst compensation. The word 'Senior' combined with 'no experience needed' is internally contradictory — no real company would use this phrasing. This is designed to attract as many victims as possible by removing all barriers to apply."
+      }
+    },
+    {
+      "type": "check_started",
+      "check_id": "linkedin_presence",
+      "name": "LinkedIn Presence",
+      "icon": "users"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "linkedin_presence",
+      "status": "red",
+      "summary": "GlobalTech Dynamics has no LinkedIn company page. No employee named 'Sarah Chen' lists GlobalTech Dynamics as their employer. The company and recruiter appear to be fabricated.",
+      "details": {
+        "tinyfish_goal": "Find this company's LinkedIn page. Extract: {\"company_found\": bool, \"company_name\": str, \"employee_count\": str, \"follower_count\": str or null, \"industry\": str, \"headquarters\": str, \"founded_year\": str or null, \"description_length\": int, \"has_logo\": bool, \"has_cover_image\": bool, \"recent_posts\": int, \"notes\": str}.",
+        "url_visited": "https://www.linkedin.com/company/globaltech-dynamics",
+        "evidence": [
+          "No LinkedIn company page exists for 'GlobalTech Dynamics'.",
+          "LinkedIn search for 'GlobalTech Dynamics' returns zero matching company profiles.",
+          "No LinkedIn user named 'Sarah Chen' lists GlobalTech Dynamics as current employer.",
+          "A company large enough to offer $185k Senior roles would have a LinkedIn presence.",
+          "WhatsApp contact + no LinkedIn + Gmail email is a critical scam combination."
+        ],
+        "raw_data": {
+          "company_found": false,
+          "error": "No LinkedIn company page found for 'GlobalTech Dynamics'. Search returned zero results for this company name.",
+          "recruiter_search": {
+            "profile_found": false,
+            "search_query": "Sarah Chen GlobalTech Dynamics",
+            "notes": "No LinkedIn profile found for anyone named Sarah Chen at GlobalTech Dynamics. Several Sarah Chens exist on LinkedIn but none are associated with this company."
+          }
+        },
+        "agent_reasoning": "The complete absence of any LinkedIn presence — for both the company and the recruiter — is devastating. Even small startups with 5 employees typically have a LinkedIn company page. A company supposedly hiring senior talent at $185k salaries would certainly have one. Combined with the WhatsApp outreach and Gmail address, this confirms the recruiter persona is fabricated."
+      }
+    },
+    {
+      "type": "check_started",
+      "check_id": "reviews_reputation",
+      "name": "Reviews & Reputation",
+      "icon": "star"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "reviews_reputation",
+      "status": "red",
+      "summary": "GlobalTech Dynamics has zero presence on Glassdoor, ScamAdviser, or any review platform. Google search returns no legitimate results for this company, and similar domain patterns have been flagged in scam reports.",
+      "details": {
+        "tinyfish_goal": "Search for reviews of 'GlobalTech Dynamics'. Look for: overall rating, number of reviews, any reviews mentioning 'scam', 'fake', 'fraud', or 'avoid'. Return as JSON: {\"company_found\": bool, \"overall_rating\": float or null, \"total_reviews\": int, \"scam_mentions\": int, \"negative_themes\": [str], \"positive_themes\": [str], \"recommend_to_friend_pct\": str or null, \"notes\": str}.",
+        "url_visited": "https://www.glassdoor.com",
+        "evidence": [
+          "Glassdoor: No company profile or reviews found for GlobalTech Dynamics.",
+          "ScamAdviser: Domain too new to have a trust score; flagged as 'very low trust' with a score of 8/100.",
+          "Google search for 'GlobalTech Dynamics scam' returns no results for this specific company.",
+          "Google search for 'GlobalTech Dynamics' returns zero legitimate business results.",
+          "Company has ZERO presence on any review or reputation platform despite claiming to hire senior talent."
+        ],
+        "raw_data": {
+          "glassdoor": {
+            "company_found": false,
+            "overall_rating": null,
+            "total_reviews": 0,
+            "scam_mentions": 0,
+            "negative_themes": [],
+            "positive_themes": [],
+            "recommend_to_friend_pct": null,
+            "notes": "No Glassdoor profile exists for GlobalTech Dynamics."
+          },
+          "scamadviser": {
+            "trust_score": 8,
+            "risk_level": "very high risk",
+            "highlights": ["Domain is very new (12 days)", "WHOIS registrant hidden", "Low Alexa rank", "No social media presence detected"],
+            "domain_age": "12 days",
+            "owner_info": "REDACTED",
+            "country": "Unknown"
+          },
+          "google_scam_search": {
+            "search_performed": true,
+            "total_results_checked": 10,
+            "scam_related_results": 0,
+            "scam_report_sites": [],
+            "bbb_listed": false,
+            "key_findings": ["No legitimate business listings found", "No press mentions or news articles", "No social media profiles"],
+            "notes": "Google returns zero relevant results for this company name. It effectively does not exist online."
+          }
+        },
+        "agent_reasoning": "A company with zero online footprint — no Glassdoor, no LinkedIn, no Google results, no press, no social media — is not a real employer. The ScamAdviser score of 8/100 confirms the domain is flagged as extremely high risk. Every reputation signal points to a fabricated entity. This company was created solely for this scam campaign."
+      }
+    },
+    {
+      "type": "verdict",
+      "overall": "likely_scam",
+      "score": 0.99,
+      "summary": "This is almost certainly a job scam. Every verification check returned red flags: GlobalTech Dynamics has no real website, no job listings on any platform, a domain registered just 12 days ago, an impossibly high salary for an entry-level role, zero LinkedIn presence, and no reviews or reputation anywhere online. The recruiter uses a Gmail address for corporate communication, contacted via WhatsApp with 24-hour urgency, and requests a government ID upfront — all hallmarks of a job scam designed to harvest personal information. Do not respond, do not send any documents, and do not share personal information.",
+      "checks_summary": [
+        {
+          "check_id": "company_website",
+          "name": "Company Website Verification",
+          "status": "red",
+          "one_liner": "Single-page placeholder site with no real business content."
+        },
+        {
+          "check_id": "job_listing_match",
+          "name": "Job Listing Cross-Match",
+          "status": "red",
+          "one_liner": "Role not found on any job board or the company's own site."
+        },
+        {
+          "check_id": "domain_trust",
+          "name": "Domain Trust (WHOIS)",
+          "status": "red",
+          "one_liner": "Domain registered 12 days ago — classic scam infrastructure."
+        },
+        {
+          "check_id": "salary_check",
+          "name": "Salary Reality Check",
+          "status": "red",
+          "one_liner": "$185k with no experience is 85% above market — too good to be true."
+        },
+        {
+          "check_id": "linkedin_presence",
+          "name": "LinkedIn Presence",
+          "status": "red",
+          "one_liner": "No LinkedIn page for the company or the recruiter."
+        },
+        {
+          "check_id": "reviews_reputation",
+          "name": "Reviews & Reputation",
+          "status": "red",
+          "one_liner": "Zero online presence; ScamAdviser trust score 8/100."
+        }
+      ]
+    },
+    {
+      "type": "done"
+    }
+  ],
+  "context": {}
+}

@@ -8,9 +8,12 @@ from __future__ import annotations
 import json
 import logging
 import traceback
+import uuid
+from datetime import datetime, timezone
+from pathlib import Path
 from typing import AsyncGenerator
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from sse_starlette.sse import EventSourceResponse
 from agents import Runner, ItemHelpers
@@ -23,6 +26,9 @@ from orchestration.orchestrator import orchestrator
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 logger = logging.getLogger("antifishy")
+
+CONVERSATIONS_DIR = Path(__file__).resolve().parent.parent / "data" / "conversations"
+CONVERSATIONS_DIR.mkdir(parents=True, exist_ok=True)
 
 app = FastAPI(
     title="AntiFishy API",
@@ -61,6 +67,43 @@ def _build_agent_input(req: AnalyzeRequest) -> str:
     return "\n".join(parts)
 
 
+def _save_conversation(
+    conversation_id: str,
+    request: AnalyzeRequest,
+    events: list[dict],
+) -> None:
+    """Persist a completed conversation to disk as JSON."""
+    # Extract classification / verdict from collected events
+    scam_type = "generic"
+    verdict = "suspicious"
+    score = 0.5
+    summary = ""
+
+    for evt in events:
+        if evt.get("type") == "classification":
+            scam_type = evt.get("scam_type", scam_type)
+        elif evt.get("type") == "verdict":
+            verdict = evt.get("overall", verdict)
+            score = evt.get("score", score)
+            summary = evt.get("summary", summary)
+
+    record = {
+        "id": conversation_id,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "input": request.message,
+        "scam_type": scam_type,
+        "verdict": verdict,
+        "score": score,
+        "summary": summary,
+        "events": events,
+        "context": request.context.model_dump() if request.context else {},
+    }
+
+    filepath = CONVERSATIONS_DIR / f"{conversation_id}.json"
+    filepath.write_text(json.dumps(record, indent=2), encoding="utf-8")
+    logger.info("Saved conversation %s", conversation_id)
+
+
 def _try_parse_json_lines(text: str) -> list[dict]:
     """Parse one or more JSON objects from text, one per line.
 
@@ -93,6 +136,8 @@ async def analyze(request: AnalyzeRequest):
 
     agent_input = _build_agent_input(request)
     logger.info("Analyze request: %s", agent_input[:200])
+    conversation_id = str(uuid.uuid4())
+    collected_events: list[dict] = []
 
     async def event_generator() -> AsyncGenerator[dict, None]:
         try:
@@ -116,6 +161,7 @@ async def analyze(request: AnalyzeRequest):
                                 obj = json.loads(line)
                                 if isinstance(obj, dict) and "type" in obj:
                                     logger.info("SSE event: %s", obj.get("type"))
+                                    collected_events.append(obj)
                                     yield {"data": json.dumps(obj)}
                             except json.JSONDecodeError:
                                 continue
@@ -129,6 +175,7 @@ async def analyze(request: AnalyzeRequest):
             if full_text.strip():
                 for obj in _try_parse_json_lines(full_text):
                     logger.info("SSE event (tail): %s", obj.get("type"))
+                    collected_events.append(obj)
                     yield {"data": json.dumps(obj)}
 
             # If we got a final_output but didn't stream it yet (non-streaming fallback)
@@ -143,17 +190,70 @@ async def analyze(request: AnalyzeRequest):
                         sent_types.add(evt_key)
                         # Only yield events we haven't streamed yet
                         # This is a best-effort dedup — the frontend should also handle dupes
+                        collected_events.append(evt)
                         yield {"data": json.dumps(evt)}
 
             # Ensure we always send a done event
-            yield {"data": json.dumps(DoneEvent().model_dump())}
+            done_evt = DoneEvent().model_dump()
+            collected_events.append(done_evt)
+            yield {"data": json.dumps(done_evt)}
 
         except Exception as exc:
             logger.error("Orchestrator error: %s\n%s", exc, traceback.format_exc())
-            yield {"data": json.dumps(ErrorEvent(message=str(exc)).model_dump())}
-            yield {"data": json.dumps(DoneEvent().model_dump())}
+            err_evt = ErrorEvent(message=str(exc)).model_dump()
+            collected_events.append(err_evt)
+            yield {"data": json.dumps(err_evt)}
+            done_evt = DoneEvent().model_dump()
+            collected_events.append(done_evt)
+            yield {"data": json.dumps(done_evt)}
+        finally:
+            # Persist conversation after stream completes
+            try:
+                _save_conversation(conversation_id, request, collected_events)
+            except Exception as save_exc:
+                logger.error("Failed to save conversation: %s", save_exc)
 
     return EventSourceResponse(event_generator())
+
+
+# ── Conversations ───────────────────────────────────────────────────────────
+
+@app.get("/api/conversations")
+async def list_conversations():
+    """Return a list of all saved conversations, sorted by most recent."""
+    conversations: list[dict] = []
+    for filepath in CONVERSATIONS_DIR.glob("*.json"):
+        try:
+            data = json.loads(filepath.read_text(encoding="utf-8"))
+            conversations.append({
+                "id": data["id"],
+                "created_at": data["created_at"],
+                "input": data["input"][:120],
+                "scam_type": data.get("scam_type", "generic"),
+                "verdict": data.get("verdict", "suspicious"),
+                "score": data.get("score", 0.5),
+            })
+        except (json.JSONDecodeError, KeyError) as exc:
+            logger.warning("Skipping malformed conversation file %s: %s", filepath.name, exc)
+            continue
+
+    conversations.sort(key=lambda c: c["created_at"], reverse=True)
+    return conversations
+
+
+@app.get("/api/conversations/{conversation_id}")
+async def get_conversation(conversation_id: str):
+    """Return the full detail for a single conversation."""
+    filepath = CONVERSATIONS_DIR / f"{conversation_id}.json"
+    if not filepath.exists():
+        raise HTTPException(status_code=404, detail="Conversation not found")
+
+    try:
+        data = json.loads(filepath.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, KeyError) as exc:
+        raise HTTPException(status_code=500, detail=f"Malformed conversation file: {exc}")
+
+    return data
 
 
 # ── Health ───────────────────────────────────────────────────────────────────

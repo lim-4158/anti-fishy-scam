@@ -100,6 +100,7 @@ export async function runMockStream(
         status: 'red',
         summary: 'Website is a thin template with no real content',
         details: {
+          tinyfish_goal: 'Navigate to techventure-global.com and evaluate the website for legitimacy. Check for: about page, team members, real contact info, social media presence, and overall content quality.',
           url_visited: 'https://techventure-global.com',
           evidence: [
             'No team page or about section',
@@ -107,6 +108,18 @@ export async function runMockStream(
             'Domain registered only 12 days ago',
             'No social media links',
           ],
+          raw_data: {
+            site_exists: true,
+            http_status: 200,
+            has_about_page: false,
+            has_real_team_members: false,
+            has_contact_info: false,
+            content_quality: 'thin',
+            domain_age_days: 12,
+            stock_photos_detected: true,
+            social_links: [],
+            agent_reasoning: 'The website loads but is a thin WordPress template with placeholder content. No real team, no real products, no verifiable business information. Classic scam front.',
+          },
         },
       },
     },
@@ -127,12 +140,20 @@ export async function runMockStream(
         status: 'red',
         summary: 'Offered salary is 65% above market rate for this role',
         details: {
+          tinyfish_goal: 'Look up the average salary for "Junior Developer" roles on Indeed, Glassdoor, and BLS. Compare against the offered $180,000.',
           evidence: [
             'Market rate for Junior Developer: $85k-$110k',
             'Offered: $180,000',
             'Premium of 65-112% over market rate',
             'Unrealistic for stated experience level',
           ],
+          raw_data: {
+            role: 'Junior Developer',
+            offered_salary: 180000,
+            market_rates: { indeed_avg: 92000, glassdoor_avg: 97000, bls_median: 89000 },
+            premium_pct: 85,
+            agent_reasoning: 'Salary is dramatically above market for a junior role. This level of overpayment is a common lure in job scams to attract victims who overlook other red flags.',
+          },
         },
       },
     },
@@ -161,12 +182,20 @@ export async function runMockStream(
         status: 'red',
         summary: 'No legitimate LinkedIn presence found',
         details: {
+          tinyfish_goal: 'Search LinkedIn for "TechVenture Global" company page. Check for employee count, company age, and recruiter profiles.',
           evidence: [
             'No company page on LinkedIn',
             'Recruiter profile created 3 weeks ago',
             'Only 12 connections',
             'No endorsements or recommendations',
           ],
+          raw_data: {
+            company_page_found: false,
+            recruiter_profile_age_days: 21,
+            recruiter_connections: 12,
+            endorsements: 0,
+            agent_reasoning: 'No LinkedIn presence at all. The recruiter profile is freshly created with minimal connections — a classic disposable identity used in job scams.',
+          },
         },
       },
     },
@@ -178,6 +207,7 @@ export async function runMockStream(
         status: 'red',
         summary: 'Domain has extremely low trust score',
         details: {
+          tinyfish_goal: 'Run WHOIS lookup on techventure-global.com. Check domain age, registrar, SSL certificate type, and historical web presence.',
           url_visited: 'https://techventure-global.com',
           evidence: [
             'Domain age: 12 days',
@@ -185,6 +215,15 @@ export async function runMockStream(
             'Free SSL certificate',
             'No historical web presence',
           ],
+          raw_data: {
+            domain: 'techventure-global.com',
+            domain_age_days: 12,
+            registrar: 'NameCheap, Inc.',
+            privacy_proxy: true,
+            ssl_issuer: "Let's Encrypt",
+            wayback_snapshots: 0,
+            agent_reasoning: 'Brand-new domain with anonymous registration and free SSL. Zero historical presence. This domain was created specifically for this scam campaign.',
+          },
         },
       },
     },
@@ -204,12 +243,20 @@ export async function runMockStream(
         status: 'yellow',
         summary: 'No reviews or reputation data found',
         details: {
+          tinyfish_goal: 'Search Glassdoor, Trustpilot, and BBB for "TechVenture Global". Check for company reviews, ratings, and any complaints.',
           evidence: [
             'Not listed on Glassdoor',
             'No Trustpilot profile',
             'Not registered with BBB',
             'No mentions in news or press',
           ],
+          raw_data: {
+            glassdoor_listed: false,
+            trustpilot_listed: false,
+            bbb_registered: false,
+            news_mentions: 0,
+            agent_reasoning: 'Complete absence from all review and reputation platforms. While not proof of a scam by itself, this combined with other red flags strongly supports the scam hypothesis.',
+          },
         },
       },
     },
@@ -349,6 +396,7 @@ export async function runMockChecks(
         status: 'red',
         summary: 'Website is a thin template with no real content',
         details: {
+          tinyfish_goal: 'Navigate to techventure-global.com and evaluate the website for legitimacy. Check for: about page, team members, real contact info, social media presence, and overall content quality.',
           url_visited: 'https://techventure-global.com',
           evidence: [
             'No team page or about section',
@@ -356,6 +404,14 @@ export async function runMockChecks(
             'Domain registered only 12 days ago',
             'No social media links',
           ],
+          raw_data: {
+            site_exists: true,
+            http_status: 200,
+            has_about_page: false,
+            content_quality: 'thin',
+            domain_age_days: 12,
+            agent_reasoning: 'The website loads but is a thin WordPress template with placeholder content.',
+          },
         },
       },
     },
@@ -376,11 +432,18 @@ export async function runMockChecks(
         status: 'red',
         summary: 'Offered salary is 65% above market rate for this role',
         details: {
+          tinyfish_goal: 'Look up the average salary for "Junior Developer" roles on Indeed, Glassdoor, and BLS.',
           evidence: [
             'Market rate for Junior Developer: $85k-$110k',
             'Offered: $180,000',
             'Premium of 65-112% over market rate',
           ],
+          raw_data: {
+            role: 'Junior Developer',
+            offered_salary: 180000,
+            market_rates: { indeed_avg: 92000, glassdoor_avg: 97000 },
+            agent_reasoning: 'Salary is dramatically above market for a junior role.',
+          },
         },
       },
     },
@@ -392,11 +455,17 @@ export async function runMockChecks(
         status: 'red',
         summary: 'No legitimate LinkedIn presence found',
         details: {
+          tinyfish_goal: 'Search LinkedIn for "TechVenture Global" company page and employees.',
           evidence: [
             'No company page on LinkedIn',
             'Recruiter profile created 3 weeks ago',
             'Only 12 connections',
           ],
+          raw_data: {
+            company_page_found: false,
+            recruiter_connections: 12,
+            agent_reasoning: 'No LinkedIn presence at all. Freshly created recruiter profile.',
+          },
         },
       },
     },
@@ -408,12 +477,20 @@ export async function runMockChecks(
         status: 'red',
         summary: 'Domain has extremely low trust score',
         details: {
+          tinyfish_goal: 'Run WHOIS lookup on techventure-global.com. Check domain age, registrar, and SSL.',
           url_visited: 'https://techventure-global.com',
           evidence: [
             'Domain age: 12 days',
             'Registered through privacy proxy',
             'Free SSL certificate',
           ],
+          raw_data: {
+            domain: 'techventure-global.com',
+            domain_age_days: 12,
+            registrar: 'NameCheap, Inc.',
+            privacy_proxy: true,
+            agent_reasoning: 'Brand-new domain with anonymous registration. Created for this scam.',
+          },
         },
       },
     },
@@ -425,11 +502,18 @@ export async function runMockChecks(
         status: 'yellow',
         summary: 'No reviews or reputation data found',
         details: {
+          tinyfish_goal: 'Search Glassdoor, Trustpilot, and BBB for "TechVenture Global".',
           evidence: [
             'Not listed on Glassdoor',
             'No Trustpilot profile',
             'Not registered with BBB',
           ],
+          raw_data: {
+            glassdoor_listed: false,
+            trustpilot_listed: false,
+            bbb_registered: false,
+            agent_reasoning: 'Complete absence from all review platforms.',
+          },
         },
       },
     },

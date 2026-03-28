@@ -18,6 +18,7 @@ import {
   ChevronDown,
   ExternalLink,
   Loader2,
+  Terminal,
 } from 'lucide-react';
 import { StatusBadge } from './StatusBadge';
 import type { CheckState } from '../types';
@@ -42,10 +43,15 @@ const iconComponents: Record<string, React.ComponentType<{ className?: string }>
 interface CheckCardProps {
   check: CheckState;
   index: number;
+  devMode?: boolean;
 }
 
-export function CheckCard({ check, index }: CheckCardProps) {
+type DevTab = 'goal' | 'raw';
+
+export function CheckCard({ check, index, devMode = false }: CheckCardProps) {
   const [expanded, setExpanded] = useState(false);
+  const [devExpanded, setDevExpanded] = useState(false);
+  const [activeDevTab, setActiveDevTab] = useState<DevTab>('goal');
   const IconComponent = iconComponents[check.icon] || Shield;
 
   const borderColor = {
@@ -82,6 +88,7 @@ export function CheckCard({ check, index }: CheckCardProps) {
 
   const isComplete = ['green', 'yellow', 'red'].includes(check.status);
   const hasDetails = check.details?.evidence && check.details.evidence.length > 0;
+  const hasDevData = check.details?.tinyfish_goal || check.details?.raw_data;
 
   return (
     <motion.div
@@ -230,6 +237,183 @@ export function CheckCard({ check, index }: CheckCardProps) {
                   </motion.li>
                 ))}
               </ul>
+
+              {/* Dev mode section */}
+              {devMode && isComplete && hasDevData && (
+                <div
+                  className="mt-3"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <button
+                    onClick={() => setDevExpanded(!devExpanded)}
+                    className="flex items-center gap-1.5 text-xs text-cyan-500/70 hover:text-cyan-400 transition-colors"
+                  >
+                    <Terminal className="w-3 h-3" />
+                    <span>{devExpanded ? 'Hide dev info' : 'Show dev info'}</span>
+                    <motion.div
+                      animate={{ rotate: devExpanded ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <ChevronDown className="w-3 h-3" />
+                    </motion.div>
+                  </button>
+
+                  <AnimatePresence>
+                    {devExpanded && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="overflow-hidden"
+                      >
+                        {/* Dev tabs */}
+                        <div className="flex gap-1 mt-2 mb-2">
+                          <button
+                            onClick={() => setActiveDevTab('goal')}
+                            className={`px-2.5 py-1 rounded text-xs transition-colors ${
+                              activeDevTab === 'goal'
+                                ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'
+                                : 'text-slate-500 hover:text-slate-300 border border-transparent'
+                            }`}
+                          >
+                            TinyFish Goal
+                          </button>
+                          <button
+                            onClick={() => setActiveDevTab('raw')}
+                            className={`px-2.5 py-1 rounded text-xs transition-colors ${
+                              activeDevTab === 'raw'
+                                ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'
+                                : 'text-slate-500 hover:text-slate-300 border border-transparent'
+                            }`}
+                          >
+                            Raw Response
+                          </button>
+                        </div>
+
+                        {/* Tab content */}
+                        {activeDevTab === 'goal' && check.details?.tinyfish_goal && (
+                          <div className="rounded-lg bg-navy-950/80 border border-navy-700/50 p-3 mt-1">
+                            <p className="text-xs text-cyan-300/80 font-mono leading-relaxed whitespace-pre-wrap">
+                              {check.details.tinyfish_goal}
+                            </p>
+                          </div>
+                        )}
+
+                        {activeDevTab === 'raw' && check.details?.raw_data && (
+                          <div className="rounded-lg bg-navy-950/80 border border-navy-700/50 p-3 mt-1 overflow-x-auto">
+                            <pre className="text-xs text-slate-400 font-mono leading-relaxed whitespace-pre-wrap break-words">
+                              {JSON.stringify(check.details.raw_data, null, 2)}
+                            </pre>
+                          </div>
+                        )}
+
+                        {/* Agent reasoning if present */}
+                        {typeof check.details?.raw_data?.agent_reasoning === 'string' && (
+                          <div className="mt-2 rounded-lg bg-navy-950/60 border border-navy-700/30 p-3">
+                            <p className="text-xs text-slate-500 font-medium mb-1">Agent Reasoning</p>
+                            <p className="text-xs text-slate-400 leading-relaxed">
+                              {String(check.details.raw_data.agent_reasoning)}
+                            </p>
+                          </div>
+                        )}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Dev mode: show dev section even when not expanded (for cards without evidence) */}
+      <AnimatePresence>
+        {devMode && isComplete && hasDevData && !expanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="overflow-hidden"
+          >
+            <div
+              className="px-4 pb-3 border-t border-navy-700/30"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setDevExpanded(!devExpanded)}
+                className="flex items-center gap-1.5 mt-2 text-xs text-cyan-500/70 hover:text-cyan-400 transition-colors"
+              >
+                <Terminal className="w-3 h-3" />
+                <span>{devExpanded ? 'Hide dev info' : 'Show dev info'}</span>
+                <motion.div
+                  animate={{ rotate: devExpanded ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <ChevronDown className="w-3 h-3" />
+                </motion.div>
+              </button>
+
+              <AnimatePresence>
+                {devExpanded && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="flex gap-1 mt-2 mb-2">
+                      <button
+                        onClick={() => setActiveDevTab('goal')}
+                        className={`px-2.5 py-1 rounded text-xs transition-colors ${
+                          activeDevTab === 'goal'
+                            ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'
+                            : 'text-slate-500 hover:text-slate-300 border border-transparent'
+                        }`}
+                      >
+                        TinyFish Goal
+                      </button>
+                      <button
+                        onClick={() => setActiveDevTab('raw')}
+                        className={`px-2.5 py-1 rounded text-xs transition-colors ${
+                          activeDevTab === 'raw'
+                            ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'
+                            : 'text-slate-500 hover:text-slate-300 border border-transparent'
+                        }`}
+                      >
+                        Raw Response
+                      </button>
+                    </div>
+
+                    {activeDevTab === 'goal' && check.details?.tinyfish_goal && (
+                      <div className="rounded-lg bg-navy-950/80 border border-navy-700/50 p-3 mt-1">
+                        <p className="text-xs text-cyan-300/80 font-mono leading-relaxed whitespace-pre-wrap">
+                          {check.details.tinyfish_goal}
+                        </p>
+                      </div>
+                    )}
+
+                    {activeDevTab === 'raw' && check.details?.raw_data && (
+                      <div className="rounded-lg bg-navy-950/80 border border-navy-700/50 p-3 mt-1 overflow-x-auto">
+                        <pre className="text-xs text-slate-400 font-mono leading-relaxed whitespace-pre-wrap break-words">
+                          {JSON.stringify(check.details.raw_data, null, 2)}
+                        </pre>
+                      </div>
+                    )}
+
+                    {typeof check.details?.raw_data?.agent_reasoning === 'string' && (
+                      <div className="mt-2 rounded-lg bg-navy-950/60 border border-navy-700/30 p-3">
+                        <p className="text-xs text-slate-500 font-medium mb-1">Agent Reasoning</p>
+                        <p className="text-xs text-slate-400 leading-relaxed">
+                          {String(check.details.raw_data.agent_reasoning)}
+                        </p>
+                      </div>
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </motion.div>
         )}

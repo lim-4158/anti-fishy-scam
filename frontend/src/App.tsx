@@ -1,3 +1,4 @@
+import { useState, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { RotateCcw } from 'lucide-react';
 import { Header } from './components/Header';
@@ -6,11 +7,37 @@ import { FollowUpForm } from './components/FollowUpForm';
 import { Dashboard } from './components/Dashboard';
 import { VerdictBanner } from './components/VerdictBanner';
 import { WaveBackground } from './components/WaveBackground';
+import { Sidebar } from './components/Sidebar';
+import { SkillsPage } from './components/SkillsPage';
+import { ChatTimeline } from './components/ChatTimeline';
+import { ChatInput } from './components/ChatInput';
 import { useAnalysis } from './hooks/useAnalysis';
+import type { ConversationDetail } from './types';
+
+type Page = 'main' | 'skills';
 
 function App() {
-  const { state, analyze, submitFollowUp, reset } = useAnalysis();
-  const { phase, checks, verdict, classification, followUpQuestions, userMessage, error } = state;
+  const { state, analyze, submitFollowUp, sendFollowUpChat, reset, loadConversation } = useAnalysis();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [devMode, setDevMode] = useState(false);
+  const [page, setPage] = useState<Page>(() => {
+    return window.location.hash === '#/skills' ? 'skills' : 'main';
+  });
+
+  const handleOpenSidebar = useCallback(() => setSidebarOpen(true), []);
+  const handleCloseSidebar = useCallback(() => setSidebarOpen(false), []);
+  const handleToggleDevMode = useCallback(() => setDevMode((prev) => !prev), []);
+  const navigateTo = useCallback((p: Page) => {
+    setPage(p);
+    window.location.hash = p === 'skills' ? '#/skills' : '';
+  }, []);
+  const handleLoadConversation = useCallback(
+    (conversation: ConversationDetail) => {
+      loadConversation(conversation);
+    },
+    [loadConversation]
+  );
+  const { phase, checks, verdict, classification, followUpQuestions, userMessage, error, timelineMessages } = state;
 
   const isInputPhase = phase === 'input';
   const isFollowUp = phase === 'follow_up';
@@ -19,17 +46,33 @@ function App() {
 
   const showCompactInput = isFollowUp || isAnalyzing || isVerdict;
   const showDashboard = isAnalyzing || isVerdict;
+  const showTimeline = timelineMessages.length > 0 && (isAnalyzing || isVerdict);
 
   return (
     <div className="bg-gradient-animated min-h-screen relative">
       <WaveBackground />
 
+      {/* Sidebar */}
+      <Sidebar
+        isOpen={sidebarOpen}
+        onClose={handleCloseSidebar}
+        onLoadConversation={handleLoadConversation}
+      />
+
       <div className="relative z-10 flex flex-col min-h-screen">
         {/* Header */}
-        <Header compact={showCompactInput} />
+        <Header
+          compact={showCompactInput}
+          onMenuClick={handleOpenSidebar}
+          devMode={devMode}
+          onToggleDevMode={handleToggleDevMode}
+        />
 
         {/* Main content */}
         <main className="flex-1 flex flex-col items-center px-4 pb-8">
+          {page === 'skills' ? (
+            <SkillsPage onBack={() => navigateTo('main')} />
+          ) : (
           <AnimatePresence mode="wait">
             {/* Landing / Input phase */}
             {isInputPhase && (
@@ -141,7 +184,7 @@ function App() {
                 </AnimatePresence>
 
                 {/* Check cards */}
-                <Dashboard checks={checks} />
+                <Dashboard checks={checks} devMode={devMode} />
 
                 {/* Error display */}
                 {error && (
@@ -151,6 +194,40 @@ function App() {
                     animate={{ opacity: 1, y: 0 }}
                   >
                     <p className="text-sm text-danger">{error}</p>
+                  </motion.div>
+                )}
+
+                {/* Chat Timeline Section */}
+                {showTimeline && (
+                  <motion.div
+                    className="max-w-3xl mx-auto w-full"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <div className="flex items-center gap-2 mb-3">
+                      <h3 className="text-sm font-semibold text-slate-300 uppercase tracking-wider">
+                        Conversation
+                      </h3>
+                      <div className="flex-1 h-px bg-gradient-to-r from-navy-600 to-transparent" />
+                    </div>
+
+                    <div className="glass-card rounded-xl border border-navy-600/20 overflow-hidden">
+                      <ChatTimeline
+                        messages={timelineMessages}
+                        isStreaming={state.isStreaming}
+                      />
+
+                      {/* Chat input */}
+                      {isVerdict && (
+                        <div className="px-3 pb-3 pt-1 border-t border-navy-700/30">
+                          <ChatInput
+                            onSend={sendFollowUpChat}
+                            isLoading={state.isStreaming}
+                          />
+                        </div>
+                      )}
+                    </div>
                   </motion.div>
                 )}
 
@@ -179,10 +256,19 @@ function App() {
               </motion.div>
             )}
           </AnimatePresence>
+          )}
         </main>
 
         {/* Footer */}
-        <footer className="relative z-10 py-4 text-center">
+        <footer className="relative z-10 py-4 text-center space-y-1">
+          {page === 'main' && (
+            <button
+              onClick={() => navigateTo('skills')}
+              className="text-xs text-slate-500 hover:text-cyan-400 transition-colors underline underline-offset-2"
+            >
+              View Detection Skills
+            </button>
+          )}
           <p className="text-xs text-slate-600">
             Built with TinyFish + OpenAI | AntiFishy Hackathon 2026
           </p>

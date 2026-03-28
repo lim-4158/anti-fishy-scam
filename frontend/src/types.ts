@@ -58,9 +58,11 @@ export interface CheckCompleteEvent {
   status: 'green' | 'yellow' | 'red';
   summary: string;
   details: {
+    tinyfish_goal?: string;
     url_visited?: string;
     evidence?: string[];
     raw_data?: Record<string, unknown>;
+    agent_reasoning?: string;
   };
 }
 
@@ -109,10 +111,22 @@ export interface CheckState {
   browserUrl?: string;
   summary?: string;
   details?: {
+    tinyfish_goal?: string;
     url_visited?: string;
     evidence?: string[];
     raw_data?: Record<string, unknown>;
+    agent_reasoning?: string;
   };
+}
+
+// Timeline message for chat view
+export interface TimelineMessage {
+  id: string;
+  role: 'user' | 'bot' | 'system';
+  content: string;
+  timestamp: number;
+  eventType?: string;
+  metadata?: Record<string, unknown>;
 }
 
 export interface AnalysisState {
@@ -135,6 +149,30 @@ export interface AnalysisState {
   };
   error?: string;
   isStreaming: boolean;
+  timelineMessages: TimelineMessage[];
+}
+
+// Conversation types for sidebar
+
+export interface ConversationSummary {
+  id: string;
+  created_at: string;
+  input: string;
+  scam_type: ScamType;
+  verdict: VerdictLevel;
+  score: number;
+}
+
+export interface ConversationDetail {
+  id: string;
+  created_at: string;
+  input: string;
+  scam_type: ScamType;
+  verdict: VerdictLevel;
+  score: number;
+  summary: string;
+  events: SSEEvent[];
+  context: Record<string, string>;
 }
 
 // Icon mapping

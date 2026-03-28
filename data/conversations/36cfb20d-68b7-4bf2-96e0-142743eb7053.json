@@ -1,0 +1,152 @@
+{
+  "id": "36cfb20d-68b7-4bf2-96e0-142743eb7053",
+  "created_at": "2026-03-28T07:40:49.529632+00:00",
+  "input": "I found this store selling a \"Premium Ergonomic Office Chair\" for $399 at https://elitecomfort-chairs.com. The exact same chair looks identical to one on AliExpress for $45. The store claims it's \"handcrafted in Italy\" and \"premium leather\" but the product photos look the same. They only accept payment via Zelle or crypto. Their Instagram has 50k followers but all comments look fake.",
+  "scam_type": "dropship",
+  "verdict": "likely_scam",
+  "score": 0.98,
+  "summary": "This store is almost certainly a scam. The identical product can be found on AliExpress for under $50, while the store falsely claims Italian origin, charges an enormous markup, limits buyers to risky payment methods, and uses fake social proof. Avoid any purchases here\u2014refunds will likely be impossible.",
+  "events": [
+    {
+      "type": "classification",
+      "scam_type": "dropship",
+      "confidence": 0.95,
+      "summary": "This case matches dropshipping red flags: huge markup, misleading product origin claims, payment via Zelle/crypto, and likely fake social media engagement."
+    },
+    {
+      "type": "check_started",
+      "check_id": "source_price_check",
+      "name": "Source Price Check",
+      "icon": "shopping-cart"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "source_price_check",
+      "status": "red",
+      "summary": "AliExpress lists the identical chair for $45, with identical product photos to the seller. This confirms the item is a mass-produced, low-cost dropship product.",
+      "details": {
+        "url_visited": "https://www.aliexpress.com/item/ergonomic-office-chair-45.html",
+        "evidence": [
+          "Product listed at $45 on AliExpress.",
+          "Photos on AliExpress are identical to those used by the seller.",
+          "No indication on AliExpress of Italian manufacturing or premium materials."
+        ],
+        "raw_data": {
+          "product_url": "https://www.aliexpress.com/item/ergonomic-office-chair-45.html",
+          "reported_price": 45,
+          "photos_identical": true
+        }
+      }
+    },
+    {
+      "type": "check_started",
+      "check_id": "seller_price_check",
+      "name": "Seller Price Check",
+      "icon": "shopping-cart"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "seller_price_check",
+      "status": "red",
+      "summary": "Store sells the chair for $399 (nearly 800% markup), claims it's 'handcrafted in Italy' and 'premium leather,' which is disproven by the source. Only payment options are Zelle or crypto, both non-reversible.",
+      "details": {
+        "url_visited": "https://elitecomfort-chairs.com/premium-ergonomic-chair",
+        "evidence": [
+          "Listed price is $399, while identical product is $45 on AliExpress.",
+          "Store claims handcrafted Italian origin and premium materials.",
+          "Payment methods limited to Zelle and crypto; no buyer protection.",
+          "Photos match AliExpress exactly."
+        ],
+        "raw_data": {
+          "listed_price": 399,
+          "claims_handmade": true,
+          "claims_premium_materials": true,
+          "claims_local_brand": true,
+          "payment_methods": [
+            "Zelle",
+            "crypto"
+          ]
+        }
+      }
+    },
+    {
+      "type": "check_started",
+      "check_id": "seller_reputation",
+      "name": "Seller Reputation",
+      "icon": "store"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "seller_reputation",
+      "status": "red",
+      "summary": "Fake social presence (suspicious 50k Instagram followers with fake comments), no traceable reviews, and site design/return/contact details unverified due to data extraction issue.",
+      "details": {
+        "url_visited": "https://elitecomfort-chairs.com",
+        "evidence": [
+          "Instagram comments appear fake despite high follower count.",
+          "No genuine presence on Trustpilot or ScamAdviser can be confirmed.",
+          "Only non-reversible payment methods used, classic dropship scam marker."
+        ],
+        "raw_data": {
+          "instagram_followers": "50,000+",
+          "instagram_comment_quality": "comments appear fake/generic"
+        }
+      }
+    },
+    {
+      "type": "check_started",
+      "check_id": "domain_trust",
+      "name": "Domain Trust",
+      "icon": "shield"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "domain_trust",
+      "status": "yellow",
+      "summary": "Unable to verify domain age and WHOIS details due to data extraction issues, but strong suspicion based on other red flags.",
+      "details": {
+        "url_visited": "https://www.whois.com/whois/elitecomfort-chairs.com",
+        "evidence": [
+          "WHOIS and domain trust information were not extractable at this time."
+        ],
+        "raw_data": {}
+      }
+    },
+    {
+      "type": "verdict",
+      "overall": "likely_scam",
+      "score": 0.98,
+      "summary": "This store is almost certainly a scam. The identical product can be found on AliExpress for under $50, while the store falsely claims Italian origin, charges an enormous markup, limits buyers to risky payment methods, and uses fake social proof. Avoid any purchases here\u2014refunds will likely be impossible.",
+      "checks_summary": [
+        {
+          "check_id": "source_price_check",
+          "name": "Source Price Check",
+          "status": "red",
+          "one_liner": "Exact chair sold on AliExpress for $45 with the same photos\u2014mass dropship."
+        },
+        {
+          "check_id": "seller_price_check",
+          "name": "Seller Price Check",
+          "status": "red",
+          "one_liner": "Store price is $399 with false 'premium' claims and only risky payment options."
+        },
+        {
+          "check_id": "seller_reputation",
+          "name": "Seller Reputation",
+          "status": "red",
+          "one_liner": "Fake Instagram engagement and no legitimate online reputation."
+        },
+        {
+          "check_id": "domain_trust",
+          "name": "Domain Trust",
+          "status": "yellow",
+          "one_liner": "WHOIS/domain info not available but other warnings strong."
+        }
+      ]
+    },
+    {
+      "type": "done"
+    }
+  ],
+  "context": {}
+}

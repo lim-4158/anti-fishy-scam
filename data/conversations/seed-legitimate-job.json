@@ -1,0 +1,334 @@
+{
+  "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+  "created_at": "2026-03-28T10:15:42.887000+00:00",
+  "input": "Is this job posting legit?\n\nSenior Software Engineer — Grab, Singapore\nPosted on LinkedIn Jobs\n\nGrab is hiring a Senior Software Engineer to join our Payments team in Singapore. You'll work on high-throughput payment processing systems serving millions of users across Southeast Asia.\n\nRequirements:\n- 5+ years of software engineering experience\n- Strong proficiency in Go or Java\n- Experience with distributed systems and microservices\n- BS/MS in Computer Science or equivalent\n\nCompensation: SGD 120,000 - 150,000 base + equity + benefits\nLocation: One-North, Singapore (hybrid — 3 days in office)\n\nApply at: https://careers.grab.com/jobs/senior-swe-payments-sg",
+  "scam_type": "job_scam",
+  "verdict": "likely_safe",
+  "score": 0.15,
+  "summary": "This job posting is almost certainly legitimate. Grab is a well-established, publicly traded technology company (NASDAQ: GRAB) headquartered in Singapore with over 10,000 employees. The role is listed on Grab's official careers page, the salary aligns closely with market data for senior software engineers in Singapore, the company has a robust LinkedIn presence, and it has strong reviews on Glassdoor. The posting was made through LinkedIn Jobs with an official careers.grab.com application link. No red flags detected.",
+  "events": [
+    {
+      "type": "classification",
+      "scam_type": "job_scam",
+      "confidence": 0.15,
+      "summary": "User submitted a job posting for evaluation. Initial signals are positive — LinkedIn posting from a well-known company with a corporate careers link — but running full verification."
+    },
+    {
+      "type": "check_started",
+      "check_id": "company_website",
+      "name": "Company Website Verification",
+      "icon": "globe"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "company_website",
+      "status": "green",
+      "summary": "Grab.com is a substantive, professional website for the Southeast Asian super-app. It has extensive company information, a dedicated careers portal, investor relations, press coverage, and a real leadership team with verifiable identities.",
+      "details": {
+        "tinyfish_goal": "Navigate to this website and thoroughly evaluate it. Check for: an About page with real team member names and photos, a Products or Services page with substantive descriptions, a Careers/Jobs page, Contact information (address, phone, email), social media links, a blog or news section, terms of service and privacy policy. Evaluate overall content quality. Return as JSON: {\"site_exists\": bool, \"http_status\": int, \"has_about_page\": bool, \"has_real_team_members\": bool, \"team_member_count\": int, \"has_products_services\": bool, \"has_careers_page\": bool, \"has_contact_info\": bool, \"has_physical_address\": bool, \"has_phone\": bool, \"has_social_links\": bool, \"has_blog\": bool, \"has_terms_privacy\": bool, \"content_quality\": \"thin|moderate|substantive\", \"estimated_page_count\": int, \"notes\": str}.",
+        "url_visited": "https://www.grab.com",
+        "evidence": [
+          "Grab.com is a fully built-out corporate website with dozens of pages.",
+          "About page includes leadership team with verifiable names: Anthony Tan (CEO), Ming Maa (President).",
+          "Products section covers ride-hailing, food delivery, payments (GrabPay), and financial services.",
+          "Dedicated careers portal at careers.grab.com with hundreds of open positions.",
+          "Physical headquarters: 3 Media Close, Singapore 138498.",
+          "Active social media links to Twitter, LinkedIn, Facebook, Instagram.",
+          "Press room with recent news articles; investor relations section for NASDAQ: GRAB.",
+          "Full terms of service, privacy policy, and cookie policy."
+        ],
+        "raw_data": {
+          "site_exists": true,
+          "http_status": 200,
+          "has_about_page": true,
+          "has_real_team_members": true,
+          "team_member_count": 12,
+          "has_products_services": true,
+          "has_careers_page": true,
+          "has_contact_info": true,
+          "has_physical_address": true,
+          "has_phone": true,
+          "has_social_links": true,
+          "has_blog": true,
+          "has_terms_privacy": true,
+          "content_quality": "substantive",
+          "estimated_page_count": 200,
+          "notes": "Grab is a NASDAQ-listed super-app company (ticker: GRAB). Website is professional, substantive, and includes investor relations, press room, detailed product pages, and a careers portal with hundreds of live job listings."
+        },
+        "agent_reasoning": "Grab's website passes every indicator with flying colors. This is a fully built-out corporate web presence for a publicly traded company. The careers portal at careers.grab.com is the official application channel, which matches the URL in the job posting. No concerns here."
+      }
+    },
+    {
+      "type": "check_started",
+      "check_id": "job_listing_match",
+      "name": "Job Listing Cross-Match",
+      "icon": "briefcase"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "job_listing_match",
+      "status": "green",
+      "summary": "The 'Senior Software Engineer — Payments' role is listed on Grab's official careers page and on Indeed. The job title, requirements, location, and salary range are consistent across all sources.",
+      "details": {
+        "tinyfish_goal": "Search for 'Senior Software Engineer' at 'Grab'. Look at search results. Return as JSON: {\"search_performed\": bool, \"results_found\": int, \"matching_listing_found\": bool, \"listing_details\": {\"title\": str, \"location\": str, \"posted_date\": str, \"salary_range\": str} or null, \"notes\": str}.",
+        "url_visited": "https://careers.grab.com",
+        "evidence": [
+          "Role 'Senior Software Engineer, Payments' found on careers.grab.com with matching requirements.",
+          "Same role found on Indeed, posted 5 days ago, matching salary range and requirements.",
+          "LinkedIn Jobs listing matches the company careers page exactly.",
+          "Application link points to careers.grab.com — the official Grab careers domain.",
+          "Multiple similar SWE roles also listed, indicating active hiring cycle."
+        ],
+        "raw_data": {
+          "careers_page": {
+            "careers_page_exists": true,
+            "total_jobs_listed": 347,
+            "matching_role_found": true,
+            "matching_role_title": "Senior Software Engineer, Payments",
+            "matching_role_location": "Singapore (Hybrid)",
+            "similar_roles": ["Staff Software Engineer, Payments", "Senior Software Engineer, GrabPay", "Software Engineer, Payment Infrastructure"],
+            "notes": "Exact role found on Grab's careers page. 347 total positions listed across engineering, product, operations, and corporate functions."
+          },
+          "indeed": {
+            "search_performed": true,
+            "results_found": 23,
+            "matching_listing_found": true,
+            "listing_details": {
+              "title": "Senior Software Engineer - Payments",
+              "location": "Singapore",
+              "posted_date": "5 days ago",
+              "salary_range": "SGD 120,000 - SGD 150,000 a year"
+            },
+            "notes": "Indeed shows 23 Grab job listings in Singapore. The Senior SWE Payments role matches exactly."
+          }
+        },
+        "agent_reasoning": "The role is verifiably real. It exists on Grab's own careers page, on Indeed, and on LinkedIn — with consistent details across all three sources. The application URL (careers.grab.com) is a subdomain of grab.com, confirming it's the company's official application channel. This is a legitimate job listing."
+      }
+    },
+    {
+      "type": "check_started",
+      "check_id": "domain_trust",
+      "name": "Domain Trust (WHOIS)",
+      "icon": "shield"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "domain_trust",
+      "status": "green",
+      "summary": "The grab.com domain was registered in 2012 (14 years ago) and is owned by GrabTaxi Holdings Pte Ltd — the legal entity behind Grab. This is a long-established, trusted domain.",
+      "details": {
+        "tinyfish_goal": "Extract WHOIS information for this domain. Return as JSON: {\"domain\": str, \"registrar\": str, \"creation_date\": str, \"expiry_date\": str, \"domain_age_days\": int, \"registrant_name\": str or \"REDACTED\", \"registrant_org\": str or \"REDACTED\", \"registrant_country\": str or \"REDACTED\", \"name_servers\": [str], \"privacy_protected\": bool, \"notes\": str}.",
+        "url_visited": "https://www.whois.com/whois/grab.com",
+        "evidence": [
+          "Domain grab.com registered on 2012-06-15 — over 14 years old.",
+          "Registrant organization is 'GrabTaxi Holdings Pte. Ltd.' — Grab's official legal entity.",
+          "Registrant country is Singapore, matching the company's headquarters.",
+          "Domain uses Cloudflare name servers — enterprise-grade DNS infrastructure.",
+          "Registrar is MarkMonitor Inc., used by major corporations for domain protection."
+        ],
+        "raw_data": {
+          "domain": "grab.com",
+          "registrar": "MarkMonitor Inc.",
+          "creation_date": "2012-06-15",
+          "expiry_date": "2027-06-15",
+          "domain_age_days": 5034,
+          "registrant_name": "REDACTED",
+          "registrant_org": "GrabTaxi Holdings Pte. Ltd.",
+          "registrant_country": "SG",
+          "name_servers": ["ns1.grab.com.cdn.cloudflare.net", "ns2.grab.com.cdn.cloudflare.net"],
+          "privacy_protected": false,
+          "notes": "Premium domain registered through MarkMonitor (enterprise registrar used by Fortune 500 companies). Registrant org matches the company's legal name. 14-year domain age."
+        },
+        "agent_reasoning": "Grab.com has an impeccable domain trust profile. The 14-year domain age, MarkMonitor registrar (used by Google, Apple, Amazon for domain protection), and transparent registration under GrabTaxi Holdings Pte. Ltd. all confirm this is a legitimate, long-established corporate domain."
+      }
+    },
+    {
+      "type": "check_started",
+      "check_id": "salary_check",
+      "name": "Salary Reality Check",
+      "icon": "dollar-sign"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "salary_check",
+      "status": "yellow",
+      "summary": "The offered SGD 120k-150k is slightly above the Singapore market median for senior software engineers (SGD 108k), but this aligns with Grab's known compensation as a publicly traded tech company. Levels.fyi data confirms Grab pays in this range.",
+      "details": {
+        "tinyfish_goal": "Search for salary data for the role 'Senior Software Engineer' in 'Singapore'. Find the typical salary range. Return as JSON: {\"search_performed\": bool, \"role_searched\": str, \"location_searched\": str, \"median_salary\": int or null, \"salary_range_low\": int or null, \"salary_range_high\": int or null, \"sample_size\": str or null, \"currency\": str, \"notes\": str}.",
+        "url_visited": "https://www.levels.fyi",
+        "evidence": [
+          "Glassdoor median for Senior Software Engineer in Singapore: SGD 108,000/year.",
+          "Market range: SGD 85,000 - SGD 135,000 depending on company tier.",
+          "Offered range of SGD 120k-150k is 11-39% above median — slightly high but within range for top-tier tech companies.",
+          "Levels.fyi shows Grab Senior SWE total compensation averaging SGD 180,000 (base + equity + bonus).",
+          "The base salary range of SGD 120k-150k aligns with Levels.fyi data for Grab specifically.",
+          "Not flagged as 'too good to be true' — consistent with Grab's compensation band."
+        ],
+        "raw_data": {
+          "glassdoor": {
+            "search_performed": true,
+            "role_searched": "Senior Software Engineer",
+            "location_searched": "Singapore",
+            "median_salary": 108000,
+            "salary_range_low": 85000,
+            "salary_range_high": 135000,
+            "sample_size": "1,204 salaries",
+            "currency": "SGD",
+            "notes": "Based on 1,204 salary submissions for Senior SWE roles in Singapore."
+          },
+          "levels_fyi": {
+            "search_performed": true,
+            "role_searched": "Senior Software Engineer",
+            "company_searched": "Grab",
+            "median_total_comp": 180000,
+            "base_salary_range": "SGD 120,000 - SGD 155,000",
+            "entries_found": 47,
+            "notes": "47 verified compensation entries for Grab Senior SWE in Singapore. Base salary range of SGD 120k-155k with additional equity and bonus bringing total comp to ~SGD 180k."
+          }
+        },
+        "agent_reasoning": "The salary is above the general market median, which is why this gets a yellow rather than green. However, Grab is a top-tier tech company (NASDAQ-listed, comparable to other regional tech leaders), and its compensation is well-documented on Levels.fyi. The offered SGD 120k-150k base matches Grab's known pay band almost exactly. This is not a red flag — it's expected for a company at Grab's scale."
+      }
+    },
+    {
+      "type": "check_started",
+      "check_id": "linkedin_presence",
+      "name": "LinkedIn Presence",
+      "icon": "users"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "linkedin_presence",
+      "status": "green",
+      "summary": "Grab has a verified LinkedIn company page with 10,000+ employees, 2.1M followers, and active weekly posting. The company's LinkedIn profile is consistent with a major regional technology company.",
+      "details": {
+        "tinyfish_goal": "Find this company's LinkedIn page. Extract: {\"company_found\": bool, \"company_name\": str, \"employee_count\": str, \"follower_count\": str or null, \"industry\": str, \"headquarters\": str, \"founded_year\": str or null, \"description_length\": int, \"has_logo\": bool, \"has_cover_image\": bool, \"recent_posts\": int, \"notes\": str}.",
+        "url_visited": "https://www.linkedin.com/company/grabapp",
+        "evidence": [
+          "Grab has a verified LinkedIn company page (blue checkmark).",
+          "10,000+ employees listed on LinkedIn.",
+          "2.1 million followers — consistent with a major tech company.",
+          "Active posting: 12 posts in the last week including engineering blog shares and job listings.",
+          "Headquarters listed as Singapore, matching the job posting.",
+          "Founded year listed as 2012, matching the domain registration."
+        ],
+        "raw_data": {
+          "company_found": true,
+          "company_name": "Grab",
+          "employee_count": "10,001+ employees",
+          "follower_count": "2,143,891",
+          "industry": "Technology, Information and Internet",
+          "headquarters": "Singapore, SG",
+          "founded_year": "2012",
+          "description_length": 847,
+          "has_logo": true,
+          "has_cover_image": true,
+          "recent_posts": 12,
+          "notes": "Verified LinkedIn company page. Grab is one of the largest tech companies in Southeast Asia with over 10,000 employees. Active LinkedIn presence with regular engineering, product, and recruitment content."
+        },
+        "agent_reasoning": "Grab's LinkedIn presence is exactly what you'd expect from a company of its size and stature. Verified page, millions of followers, active posting cadence, and thousands of employees. The engineering team regularly posts about technical work, which further corroborates that they're actively hiring senior engineers."
+      }
+    },
+    {
+      "type": "check_started",
+      "check_id": "reviews_reputation",
+      "name": "Reviews & Reputation",
+      "icon": "star"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "reviews_reputation",
+      "status": "green",
+      "summary": "Grab has a 3.9/5.0 rating on Glassdoor with 2,800+ reviews, a ScamAdviser trust score of 96/100, and no scam-related search results. The company has a strong, well-documented reputation.",
+      "details": {
+        "tinyfish_goal": "Search for reviews of 'Grab'. Look for: overall rating, number of reviews, any reviews mentioning 'scam', 'fake', 'fraud', or 'avoid'. Return as JSON: {\"company_found\": bool, \"overall_rating\": float or null, \"total_reviews\": int, \"scam_mentions\": int, \"negative_themes\": [str], \"positive_themes\": [str], \"recommend_to_friend_pct\": str or null, \"notes\": str}.",
+        "url_visited": "https://www.glassdoor.com",
+        "evidence": [
+          "Glassdoor: 3.9/5.0 rating with 2,847 reviews — strong employer reputation.",
+          "73% of reviewers would recommend Grab to a friend.",
+          "Negative themes are typical of large tech companies: work-life balance, pace of change.",
+          "Zero mentions of 'scam' or 'fraud' in employee reviews.",
+          "ScamAdviser trust score: 96/100 — excellent.",
+          "Google search for 'Grab scam' returns results about ride-hailing passenger disputes, not employment fraud."
+        ],
+        "raw_data": {
+          "glassdoor": {
+            "company_found": true,
+            "overall_rating": 3.9,
+            "total_reviews": 2847,
+            "scam_mentions": 0,
+            "negative_themes": ["Work-life balance can be demanding", "Fast-paced environment", "Organizational restructuring"],
+            "positive_themes": ["Strong engineering culture", "Impactful work at scale", "Good compensation and benefits", "Southeast Asian mission"],
+            "recommend_to_friend_pct": "73%",
+            "notes": "Well-reviewed employer with typical large tech company complaints. No employment-related scam reports."
+          },
+          "scamadviser": {
+            "trust_score": 96,
+            "risk_level": "very low risk",
+            "highlights": ["Domain is 14 years old", "High traffic website", "SSL certificate valid", "Company is publicly traded (NASDAQ: GRAB)"],
+            "domain_age": "14 years",
+            "owner_info": "GrabTaxi Holdings Pte. Ltd.",
+            "country": "Singapore"
+          },
+          "google_scam_search": {
+            "search_performed": true,
+            "total_results_checked": 10,
+            "scam_related_results": 0,
+            "scam_report_sites": [],
+            "bbb_listed": false,
+            "key_findings": ["No employment fraud reports", "Results about ride-hailing disputes are unrelated", "Company widely covered in major publications (TechCrunch, Bloomberg, Reuters)"],
+            "notes": "Grab is extensively covered by major business and tech media. No employment scam reports found."
+          }
+        },
+        "agent_reasoning": "Grab passes every reputation check with strong marks. A 3.9 Glassdoor rating with nearly 3,000 reviews is excellent for a tech company of this size. The ScamAdviser score of 96/100 and extensive media coverage confirm this is a legitimate, well-established employer. There is no reason to doubt this job posting."
+      }
+    },
+    {
+      "type": "verdict",
+      "overall": "likely_safe",
+      "score": 0.15,
+      "summary": "This job posting is almost certainly legitimate. Grab is a well-established, publicly traded technology company (NASDAQ: GRAB) headquartered in Singapore with over 10,000 employees. The role is listed on Grab's official careers page, the salary aligns closely with market data for senior software engineers in Singapore, the company has a robust LinkedIn presence, and it has strong reviews on Glassdoor. The posting was made through LinkedIn Jobs with an official careers.grab.com application link. No red flags detected.",
+      "checks_summary": [
+        {
+          "check_id": "company_website",
+          "name": "Company Website Verification",
+          "status": "green",
+          "one_liner": "grab.com is a fully built-out corporate site for a NASDAQ-listed company."
+        },
+        {
+          "check_id": "job_listing_match",
+          "name": "Job Listing Cross-Match",
+          "status": "green",
+          "one_liner": "Role verified on Grab's careers page, Indeed, and LinkedIn."
+        },
+        {
+          "check_id": "domain_trust",
+          "name": "Domain Trust (WHOIS)",
+          "status": "green",
+          "one_liner": "14-year-old domain registered to GrabTaxi Holdings Pte. Ltd."
+        },
+        {
+          "check_id": "salary_check",
+          "name": "Salary Reality Check",
+          "status": "yellow",
+          "one_liner": "Slightly above market median but matches Grab's known pay band on Levels.fyi."
+        },
+        {
+          "check_id": "linkedin_presence",
+          "name": "LinkedIn Presence",
+          "status": "green",
+          "one_liner": "Verified LinkedIn page with 10,000+ employees and 2.1M followers."
+        },
+        {
+          "check_id": "reviews_reputation",
+          "name": "Reviews & Reputation",
+          "status": "green",
+          "one_liner": "3.9/5.0 on Glassdoor with 2,800+ reviews; ScamAdviser 96/100."
+        }
+      ]
+    },
+    {
+      "type": "done"
+    }
+  ],
+  "context": {}
+}

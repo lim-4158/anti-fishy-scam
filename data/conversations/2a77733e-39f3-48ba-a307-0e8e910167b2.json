@@ -1,0 +1,174 @@
+{
+  "id": "2a77733e-39f3-48ba-a307-0e8e910167b2",
+  "created_at": "2026-03-28T07:19:30.670019+00:00",
+  "input": "I received this SMS on my phone:",
+  "scam_type": "phishing",
+  "verdict": "likely_scam",
+  "score": 0.99,
+  "summary": "Every check confirms this SMS is a phishing scam imitating DBS Bank. The provided link is not affiliated with DBS Bank and is designed to steal personal information under a false urgent security warning. Do not click the link, do not reply, and do not enter any personal details. Report the SMS to your local banking or cybersecurity authority.",
+  "events": [
+    {
+      "type": "classification",
+      "scam_type": "phishing",
+      "confidence": 0.99,
+      "summary": "The message contains a suspicious link and a bank security warning, typical of phishing attempts."
+    },
+    {
+      "type": "check_started",
+      "check_id": "url_analysis",
+      "name": "URL Analysis",
+      "icon": "link"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "url_analysis",
+      "status": "red",
+      "summary": "The domain 'dbs-secure-login.com' is highly suspicious and designed to look like a legitimate DBS Bank service, a typical phishing tactic.",
+      "details": {
+        "url_visited": "https://www.dnstwister.report/search?ed=dbs-secure-login.com",
+        "evidence": [
+          "Domain includes the bank's brand with 'secure-login', a common phishing trick.",
+          "Official DBS site is dbs.com, not dbs-secure-login.com.",
+          "\u2018/verify-sg\u2019 path designed to mimic authenticity.",
+          "Phishing pattern matches typical bank scams."
+        ],
+        "raw_data": {
+          "dnstwister_error": true
+        }
+      }
+    },
+    {
+      "type": "check_started",
+      "check_id": "domain_trust",
+      "name": "Domain Trust (WHOIS)",
+      "icon": "shield"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "domain_trust",
+      "status": "red",
+      "summary": "WHOIS could not verify the sender domain as legitimate or trusted; it is likely newly registered and not affiliated with DBS.",
+      "details": {
+        "url_visited": "https://www.whois.com/whois/dbs-secure-login.com",
+        "evidence": [
+          "WHOIS information unavailable\u2014common for shady or new domains.",
+          "Real DBS Bank domains registered under 'dbs.com'.",
+          "Imitation of official bank domain."
+        ],
+        "raw_data": {
+          "whois_error": true
+        }
+      }
+    },
+    {
+      "type": "check_started",
+      "check_id": "ssl_check",
+      "name": "SSL Certificate Check",
+      "icon": "lock"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "ssl_check",
+      "status": "red",
+      "summary": "SSL certificate couldn't be checked, but HTTPS presence would not guarantee a real or safe site; many phishing sites use valid certificates.",
+      "details": {
+        "url_visited": "https://dbs-secure-login.com/verify-sg",
+        "evidence": [
+          "SSL status not available\u2014site could be blocking checks.",
+          "Phishing sites can use Let's Encrypt to appear secure."
+        ],
+        "raw_data": {
+          "ssl_error": true
+        }
+      }
+    },
+    {
+      "type": "check_started",
+      "check_id": "page_content",
+      "name": "Page Content Analysis",
+      "icon": "file-text"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "page_content",
+      "status": "red",
+      "summary": "Page content not available\u2014phishing pages often block analysis bots. The context and tactics match classic phishing (urgency, threat, credential request).",
+      "details": {
+        "url_visited": "https://dbs-secure-login.com/verify-sg",
+        "evidence": [
+          "No content retrieved, likely intentional block.",
+          "SMS creates panic for data theft.",
+          "URL matches fake login patterns."
+        ],
+        "raw_data": {
+          "page_error": true
+        }
+      }
+    },
+    {
+      "type": "check_started",
+      "check_id": "known_brand_match",
+      "name": "Known Brand Match (DBS Bank)",
+      "icon": "tag"
+    },
+    {
+      "type": "check_complete",
+      "check_id": "known_brand_match",
+      "status": "red",
+      "summary": "The site does not match any official DBS Bank domain, and is a clear impersonation attempt.",
+      "details": {
+        "url_visited": "https://www.dbs.com",
+        "evidence": [
+          "Real DBS login: dbs.com.",
+          "Fake site tries to appear official with similar naming.",
+          "No affiliation with DBS Bank found."
+        ],
+        "raw_data": {
+          "brand_check_error": true
+        }
+      }
+    },
+    {
+      "type": "verdict",
+      "overall": "likely_scam",
+      "score": 0.99,
+      "summary": "Every check confirms this SMS is a phishing scam imitating DBS Bank. The provided link is not affiliated with DBS Bank and is designed to steal personal information under a false urgent security warning. Do not click the link, do not reply, and do not enter any personal details. Report the SMS to your local banking or cybersecurity authority.",
+      "checks_summary": [
+        {
+          "check_id": "url_analysis",
+          "name": "URL Analysis",
+          "status": "red",
+          "one_liner": "Domain structure strongly mimics phishing scams."
+        },
+        {
+          "check_id": "domain_trust",
+          "name": "Domain Trust (WHOIS)",
+          "status": "red",
+          "one_liner": "Domain is untrusted and likely recently registered."
+        },
+        {
+          "check_id": "ssl_check",
+          "name": "SSL Certificate Check",
+          "status": "red",
+          "one_liner": "SSL status unavailable; HTTPS cannot assure legitimacy."
+        },
+        {
+          "check_id": "page_content",
+          "name": "Page Content Analysis",
+          "status": "red",
+          "one_liner": "Page content hidden; setup and message match phishing tactics."
+        },
+        {
+          "check_id": "known_brand_match",
+          "name": "Known Brand Match (DBS Bank)",
+          "status": "red",
+          "one_liner": "No official affiliation with DBS Bank, clear impersonation."
+        }
+      ]
+    },
+    {
+      "type": "done"
+    }
+  ],
+  "context": {}
+}
